@@ -1,0 +1,43 @@
+---
+title: "HW8 - ANN"
+author: "Aidan Fischer - 10447681"
+date: "`r Sys.Date()`"
+output: html_document
+---
+```{r}
+rm(list=ls())
+library(caTools)
+library(class)
+library(e1071)
+library(caret)
+library(neuralnet)
+data = read.csv("wisc_bc_ContinuousVar.csv")
+data = data[complete.cases(data), ]
+data$diagnosis <- sapply(data$diagnosis, switch, "B"=0, "M"=1)
+set.seed(255)
+data = subset(data, select = -c(id))
+split = sample.split(data$diagnosis, SplitRatio=0.7)
+train = subset(data, split == TRUE)
+test = subset(data, split == FALSE)
+
+```
+Neural Net
+```{r}
+net = neuralnet(diagnosis~., data=train, hidden=5,err.fct="ce", linear.output=FALSE)
+```
+Display
+```{r}
+plot(net)
+```
+Evaluation
+```{r}
+output = compute(net, test[,-1])
+results = data.frame(actual=test$diagnosis, predicted=output$net.result)
+results = sapply(results,round,digits=0)
+results
+```
+Performance
+```{r}
+conf = table(test$diagnosis, round(output$net.result, digits=0))
+confusionMatrix(conf)
+```

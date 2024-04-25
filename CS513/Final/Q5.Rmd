@@ -1,0 +1,53 @@
+---
+title: "CS 513 Final - Q5"
+author: "Aidan Fischer - 10447681"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+Load data
+```{r}
+rm(list=ls())
+library(caTools)
+library(class)
+library(e1071)
+library(caret)
+library(randomForest)
+data = read.csv("Hear_attack.csv")
+data = data[complete.cases(data), ]
+set.seed(255)
+data$Heart_attack = as.factor(data$Heart_attack)
+split = sample.split(data$Heart_attack, SplitRatio=0.7)
+train = subset(data, split == TRUE)
+test = subset(data, split == FALSE)
+```
+
+Create the random forest model
+```{r}
+classifier = randomForest(Heart_attack~.,data=train,method="")
+```
+Evaluation
+
+```{r}
+train_pred <- predict(classifier, newdata=train, type="class")
+test_pred  <- predict(classifier, newdata=test, type="class")
+
+cm_train <- table(train$Heart_attack, train_pred)
+cm_test <- table(test$Heart_attack, test_pred)
+```
+
+```{r}
+confusionMatrix(cm_train)
+```
+```{r}
+confusionMatrix(cm_test)
+```
+```{r}
+plot(classifier)
+print(classifier)
+```
+
+Variable Importance
+```{r}
+classifier["importance"]
+```
+Recovery Heart rate is the most important variable, next to BP. Recovery heart rate seems to increase with the severity of the heart attack, so it seems to be a good indicator of the target variable.

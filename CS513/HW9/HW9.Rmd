@@ -1,0 +1,39 @@
+---
+title: "HW9 - Clustering"
+author: "Aidan Fischer - 10447681"
+date: "`r Sys.Date()`"
+output: html_document
+---
+```{r}
+rm(list=ls())
+library(caTools)
+library(class)
+library(e1071)
+library(caret)
+library(neuralnet)
+data = read.csv("wisc_bc_ContinuousVar.csv")
+data = data[complete.cases(data), ]
+set.seed(255)
+data = subset(data, select = -c(id))
+```
+Clustering
+```{r}
+distmat = dist(data[,-1])
+cancer_hclust = hclust(distmat)
+plot(cancer_hclust)
+clusters = cutree(cancer_hclust,2)
+```
+Tabulation
+```{r}
+table(clusters, data[,1])
+```
+KMeans
+```{r}
+cancer_kmeans = kmeans(data[,-1],2)
+cancer_kmeans$cluster
+cancer_kmeans$centers
+```
+Tabulation
+```{r}
+table(cancer_kmeans$cluster,data[,1])
+```

@@ -1,0 +1,4 @@
+curl.log
+*.zip
+./*.json
+*_ratings/

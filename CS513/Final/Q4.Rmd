@@ -1,0 +1,66 @@
+---
+title: "CS 513 Final - Q4"
+author: "Aidan Fischer - 10447681"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+Load data
+Convert categorical output to numerical for neural net
+```{r}
+rm(list=ls())
+library(caTools)
+library(class)
+library(e1071)
+library(caret)
+library(neuralnet)
+library(BBmisc)
+library(plyr)
+data = read.csv("Hear_attack.csv")
+data = data[complete.cases(data), ]
+data$Heart_attack <- sapply(data$Heart_attack, switch, "Light"=0, "Mild"=0.5, "Massive"=1)
+set.seed(255)
+```
+Perform standard scaling (equivalent to Python's StandardScaler)
+```{r}
+data$RestHR <- normalize(data$RestHR, method="standardize")
+data$MaxHR <- normalize(data$MaxHR, method="standardize")
+data$RecHR <- normalize(data$RecHR, method="standardize")
+data$BP <- normalize(data$BP, method="standardize")
+```
+Perform test-train split 
+```{r}
+split = sample.split(data$Heart_attack, SplitRatio=0.7)
+train = subset(data, split == TRUE)
+test = subset(data, split == FALSE)
+```
+
+Train neural net
+```{r}
+heartnet = neuralnet(Heart_attack~.,data=train,hidden=10,learningrate=0.001,algorithm="backprop",threshold=0.005,linear.output = FALSE,stepmax=1e+06, lifesign="full", lifesign.step = 25000)
+```
+Display
+```{r}
+plot(heartnet)
+```
+Evaluation
+Note
+0 = Light
+0.5 = Mild
+1 = Massive
+```{r}
+output = compute(heartnet, test[,-5])
+results = data.frame(actual=test$Heart_attack, predicted=output$net.result)
+results = sapply(results, round_any, accuracy=0.5, f=round)
+results
+```
+Performance
+Note
+0 = Light
+0.5 = Mild
+1 = Massive
+```{r}
+conf = table(test$Heart_attack, round_any(output$net.result, accuracy=0.5, f=round))
+confusionMatrix(conf)
+```
+
+Accuracy is 97.78% on the test set.

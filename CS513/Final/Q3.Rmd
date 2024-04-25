@@ -1,0 +1,48 @@
+---
+title: "CS 513 Final - Q3"
+author: "Aidan Fischer - 10447681"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+Load required libraries and data
+```{r}
+rm(list=ls())
+library(caTools)
+library(class)
+library(e1071)
+library(caret)
+library(BBmisc)
+data = read.csv("NYNJ_zipcode_population.csv")
+data = data[complete.cases(data), ]
+```
+Take the clustering attributes and normalize
+```{r}
+datamat = data[,-c(1,2,3)]
+rownames(datamat) <- data[,3]
+datamat = normalize(datamat, method="scale")
+```
+Perform kmeans clustering
+```{r}
+state_kmeans = kmeans(datamat,5)
+```
+View cluster assignments for cluster 1
+```{r}
+print(state_kmeans$cluster[state_kmeans$cluster==1])
+```
+View cluster assignments for cluster 2
+```{r}
+print(state_kmeans$cluster[state_kmeans$cluster==2])
+```
+View cluster assignments for cluster 3
+```{r}
+print(state_kmeans$cluster[state_kmeans$cluster==3])
+```
+View cluster assignments for cluster 4
+```{r}
+print(state_kmeans$cluster[state_kmeans$cluster==4])
+```
+View cluster assignments for cluster 5
+```{r}
+print(state_kmeans$cluster[state_kmeans$cluster==5])
+```
+KMeans did a much better job at clustering more evenly than single linkage hierarchal clustering did. 

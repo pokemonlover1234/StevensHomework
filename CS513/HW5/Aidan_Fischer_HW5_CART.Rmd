@@ -1,0 +1,66 @@
+---
+title: 'CS513 HW5: CART'
+author: "Aidan Fischer - 10447681"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+I plege my honor that I have abided by the Stevens Honor System
+
+```{r }
+rm(list=ls())
+library(caTools)
+library(class)
+library(rpart)
+library(caret)
+data = read.csv("breast-cancer-wisconsin.csv")
+data$F6 <- suppressWarnings(as.numeric(data$F6))
+data = data[complete.cases(data), ]
+#Convert categories to the factor data type
+
+for(i in 1:9){
+  col = paste("F",i,sep='')
+  data[col] <- factor(data[[col]], levels = 1:10)
+}
+
+data$Class <- factor(data$Class, levels=c(2,4))
+set.seed(255)
+split = sample.split(data$Class, SplitRatio=0.7)
+train = subset(data, split == TRUE)
+test = subset(data, split == FALSE)
+```
+
+Naive Bayes
+```{r}
+classifier <- rpart(Class ~ (.-Sample), data=train, method="class")
+classifier
+```
+
+Evaluation
+
+```{r}
+train_pred <- predict(classifier, newdata=train, type="class")
+test_pred  <- predict(classifier, newdata=test, type="class")
+
+cm_train <- table(train$Class, train_pred)
+cm_test <- table(test$Class, test_pred)
+```
+
+```{r}
+confusionMatrix(cm_train)
+```
+```{r}
+confusionMatrix(cm_test)
+```
+Some information on the tree
+```{r}
+printcp(classifier)
+```
+
+```{r}
+plotcp(classifier)
+```
+```{r}
+plot(classifier)
+text(classifier)
+```

@@ -1,0 +1,10 @@
+Usage: ./scull <command>
+Commands:
+  R          Reset quantum
+  S <int>    Set quantum
+  T <int>    Tell quantum
+  G          Get quantum
+  Q          Query quantum
+  X <int>    Exchange quantum
+  H <int>    Shift quantum
+  h          Print this message

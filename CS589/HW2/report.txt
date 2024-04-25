@@ -1,0 +1,18 @@
+Name: Aidan Fischer
+Date: 10/18/2023
+I pledge my honor that I have abided by the Stevens Honor System
+
+Note: All commands run as part of this homework were executed through the submitted Python notebook. 
+
+Lang: python
+	dlm: NDCG@10=0.25369308571612953
+	bm25: NDCG@10=0.38970188476725953
+	tfidf: NDCG@10=0.38970188476725953
+Lang: java
+	dlm: NDCG@10=0.2507454745137205
+	bm25: NDCG@10=0.3836909301110075
+	tfidf: NDCG@10=0.3836909301110075
+Lang: javascript
+	dlm: NDCG@10=0.2154408124737695
+	bm25: NDCG@10=0.38279177728793945
+	tfidf: NDCG@10=0.38279177728793945

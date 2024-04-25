@@ -1,0 +1,8 @@
+Aidan Fischer
+
+I pledge my honor that I have abided by the Stevens Honor System
+
+FLAML seems to choose fewer long-running trials and thus can run faster than grid search over the same number of trials. 
+GRID search is exhaustive over its search space, so it will find the optimal set of hyperparameters over its search space.
+FLAML is not exhaustive but it found a good set of hyperparameters faster than GRID search
+FLAML did not find as good a set of hyperparameters as grid search

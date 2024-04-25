@@ -1,0 +1,45 @@
+---
+title: "CS 513 Final - Q2"
+author: "Aidan Fischer - 10447681"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+Load required libraries and data
+```{r}
+rm(list=ls())
+library(caTools)
+library(class)
+library(e1071)
+library(caret)
+library(BBmisc)
+data = read.csv("NYNJ_zipcode_population.csv")
+data = data[complete.cases(data), ]
+```
+Take the clustering attributes and normalize
+```{r}
+datamat = data[,-c(1,2,3)]
+rownames(datamat) <- data[,3]
+datamat = normalize(datamat, method="scale")
+```
+Perform hierarchical clustering
+```{r}
+
+distmat = stats::dist(datamat, method="euclidean")
+state_hclust = hclust(distmat, method="single")
+plot(state_hclust)
+rect.hclust(state_hclust, k=3, border=2:6)
+clusters = cutree(state_hclust,k=3)
+```
+View cluster assignments for cluster 1
+```{r}
+print(clusters[clusters==1])
+```
+View cluster assignments for cluster 2
+```{r}
+print(clusters[clusters==2])
+```
+View cluster assignments for cluster 3
+```{r}
+print(clusters[clusters==3])
+```
+The algorithm seems to assign most of the zip codes to cluster 1 for some reason when using the single method. I was unable to affect this behavior. I am unsure why. 

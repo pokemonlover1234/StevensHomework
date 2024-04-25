@@ -1,0 +1,65 @@
+The supplied program takes 5 arguments:
+
+    Algorithm
+        This a block-cipher algorithm that the program will use. It can take on the following values (in parenthesis the key size or key-size range):
+            DES​​ (56 bit);
+            TripleDES​​ (112 bit);
+            RC2​ (8 to 1024 bits, but in increments of 8 bits; default value is 64 bits);
+            AES​​ (128, 192, or 256 bit); ​​or
+            Blowfish​​ (any multiple of 8 bits between 32 and 448 bits).
+        In class we have discussed only DES, TripleDES and AES, but RC2 and Blowfish operate similarly - if needed, you can check their general description in Wikipedia.
+    Key​​ size
+        The length of key that will be produced by the program and be used by the block cipher. Each algorithm accepts and must be used with certain key sizes, as shown above.
+    Mode​​ of ​​operation
+        As discussed in last week’s lab and this week's lecture, a block cipher's mode of operation is the method by which the encryption algorithm is applied to messages that are longer than the block size, i.e., 
+        to consecutive blocks of the message. It can take on the following values: ECB, ​​CBC,​​ OFB,​​ and​​ PCBC Links to an external site..​​
+        Note that RC2​ ​only ​​accepts ​​ECB.
+    Iterations
+        The number of times to run the encryption and decryption algorithms of the specified block cipher over the selected message in order to measure their efficiency.
+        We recommend a value above 100000 to get a more better estimate of the measured statistics.
+    Message
+        The message to encrypt.
+
+Here is an example of a successful command-line call of the provided program - please note the required use of the quote marks with your selected message:
+
+java SymmetricKeyTest AES 128 CBC 100000 "This is a test message"
+
+Before you run the above command, you may need to run the following to compile the program:
+
+javac SymmetricKeyTest.java
+
+Once you have read and understand this, please select Next.
+
+timings in microseconds
+
+alg        bit  mode enc   dec
+DES        56   ECB  0.121 0.123
+DES        56   CBC  0.141 0.149
+DES        56   OFB  0.134 0.136
+DES        56   PCBC 0.140 0.138
+TripleDES  112  ECB  0.279 0.277
+TripleDES  112  CBC  0.307 0.303
+TripleDES  112  OFB  0.292 0.288
+TripleDES  112  PCBC 0.299 0.301
+RC2        40   ECB  0.163 0.158
+RC2​        512  ECB  0.122 0.126
+RC2​        1024 ECB  0.100 0.100
+AES        128  ECB  0.045 0.045
+AES        128  CBC  0.053 0.053
+AES        128  OFB  0.063 0.065
+AES        128  PCBC 0.080 0.065
+Blowfish   32   ECB  4.212 4.213
+Blowfish   32   CBC  4.390 4.408
+Blowfish   32   OFB  4.243 4.243
+Blowfish   32   PCBC 4.311 4.307
+
+AES different message lengths
+
+AES short  128  ECB  0.047 0.049
+AES short  128  CBC  0.072 0.064
+AES short  128  OFB  0.064 0.065
+AES short  128  PCBC 0.076 0.070
+AES long   128  ECB  0.094 0.092
+AES long   128  CBC  0.098 0.081
+AES long   128  OFB  0.154 0.151
+AES long   128  PCBC 0.184 0.177

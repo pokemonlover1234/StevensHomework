@@ -1,0 +1,54 @@
+[submodule "CS146"]
+	path = CS146
+	url = https://github.com/pokemonlover1234/CS146
+[submodule "PLaF"]
+	path = CS496/PLaF
+	url = https://github.com/ebonelli/PLaF.git
+[submodule "CS492/GroupProject"]
+	path = CS492/GroupProject
+	url = https://github.com/pokemonlover1234/CS492-Group-Project
+[submodule "CS516/HW2"]
+	path = CS516/HW2
+	url = https://github.com/profkoskinen/homework-2-x86-simulator-aidan_solo
+[submodule "CS516/HW1"]
+	path = CS516/HW1
+	url = https://github.com/profkoskinen/homework-1-hellocaml-pokemonlover1234
+[submodule "CS545/cs545-final-project"]
+	path = CS545/cs545-final-project
+	url = https://github.com/hchachko/cs545-final-project
+[submodule "CS516/HW10"]
+	path = CS516/HW10
+	url = https://github.com/profkoskinen/homework-10-register-allocation-aidan_hw10
+[submodule "CS516/HW3"]
+	path = CS516/HW3
+	url = https://github.com/profkoskinen/homework-3-x86-assembler-aidan_solo2
+[submodule "CS516/HW4"]
+	path = CS516/HW4
+	url = https://github.com/profkoskinen/homework-4-llvmlite-aidan_hw4
+[submodule "CS516/HW5"]
+	path = CS516/HW5
+	url = https://github.com/profkoskinen/homework-5-lexing-aidan_hw5
+[submodule "CS516/HW6"]
+	path = CS516/HW6
+	url = https://github.com/profkoskinen/homework-6-parsing-aidan_solo_hw6
+[submodule "CS516/HW9"]
+	path = CS516/HW9
+	url = https://github.com/profkoskinen/homework-9-dataflow-analysis-aidan_hw9
+[submodule "CS516/HW8"]
+	path = CS516/HW8
+	url = https://github.com/profkoskinen/homework-8-structs-and-function-pointers-aidan_solo_hw8
+[submodule "CS516/HW7"]
+	path = CS516/HW7
+	url = https://github.com/stevens-cs516-sp23/hw7-aidan_hw7
+[submodule "CS513/Final Project/CS513-Final-Project"]
+	path = CS513/Final Project/CS513-Final-Project
+	url = https://github.com/pokemonlover1234/CS513-Final-Project
+[submodule "CS589/HW1/cs589assignment1"]
+	path = CS589/HW1/cs589assignment1
+	url = https://github.com/guanqun-yang/cs589assignment1
+[submodule "CS589/HW3/cs589assignment3"]
+	path = CS589/HW3/cs589assignment3
+	url = https://github.com/guanqun-yang/cs589assignment3
+[submodule "CS589/HW4/cs589assignment4"]
+	path = CS589/HW4/cs589assignment4
+	url = https://github.com/guanqun-yang/cs589assignment4

@@ -1,0 +1,16 @@
+Means after iteration 1:
+	Red: [5.17142857 3.17142857]
+	Green: [5.5 4.2]
+	Blue: [6.45 2.95]
+
+Means after iteration 2:
+	Red: [4.8  3.05]
+	Green: [5.3 4. ]
+	Blue: [6.2   3.025]
+
+Means after iteration 3:
+	Red: [4.8  3.05]
+	Green: [5.3 4. ]
+	Blue: [6.2   3.025]
+
+Converged at iteration 2

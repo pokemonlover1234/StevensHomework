@@ -1,0 +1,52 @@
+---
+title: "CS513 HW2: EDA"
+author: "Aidan Fischer - 10447681"
+date: "2023-10-07"
+output: pdf_document
+---
+1)
+I)
+```{r }
+rm(list=ls())
+data = read.csv("breast-cancer-wisconsin.csv")
+data$F6 <- suppressWarnings(as.numeric(data$F6))
+summary(data)
+```
+II)
+```{r}
+data[!complete.cases(data), ]
+```
+III)
+```{r}
+data$F6[is.na(data$F6)] <- mean(data$F6, na.rm=TRUE)
+```
+IV)
+```{r}
+table(data$Class, data$F6)
+```
+V)
+```{r}
+for (i in 1:5) {
+  for (j in (i+1):6){
+    f = paste("F",i,sep='')
+    g = paste("F",j,sep='')
+    plot(data[[f]], 
+         data[[g]],
+         main=paste("Scatterplot of F",i," and F",j,sep=''),
+         xlab=paste("F",i,sep=''),
+         ylab=paste("F",i,sep=''))
+  }
+}
+```
+VI)
+```{r}
+hist(data$F7, main="Histogram of F7", xlab="F7")
+hist(data$F8, main="Histogram of F8", xlab="F8")
+hist(data$F9, main="Histogram of F9", xlab="F9")
+```
+2)
+```{r}
+rm(list=ls())
+data = read.csv("breast-cancer-wisconsin.csv")
+data = data[complete.cases(data), ]
+```

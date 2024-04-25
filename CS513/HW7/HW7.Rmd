@@ -1,0 +1,57 @@
+---
+title: "CS 513 HW7 - SVM"
+author: "Aidan Fischer - 10447681"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+I plege my honor that I have abided by the Stevens Honor System
+
+Creation (Copied from HW3 since the data setup is the same)
+```{r}
+rm(list=ls())
+library(caTools)
+library(class)
+library(e1071)
+library(caret)
+library(C50)
+data = read.csv("breast-cancer-wisconsin.csv")
+data$F6 <- suppressWarnings(as.numeric(data$F6))
+data = data[complete.cases(data), ]
+#Convert categories to the factor data type
+
+for(i in 1:9){
+  col = paste("F",i,sep='')
+  data[col] <- factor(data[[col]], levels = 1:10)
+}
+
+data$Class <- factor(data$Class, levels=c(2,4))
+set.seed(255)
+split = sample.split(data$Class, SplitRatio=0.7)
+train = subset(data, split == TRUE)
+test = subset(data, split == FALSE)
+```
+
+SVM Model (linear kernel)
+```{r}
+classifier = svm(Class ~ ., data=data, kernel = "linear")
+```
+Evaluation
+
+```{r}
+train_pred <- predict(classifier, newdata=train, type="class")
+test_pred  <- predict(classifier, newdata=test, type="class")
+
+cm_train <- table(train$Class, train_pred)
+cm_test <- table(test$Class, test_pred)
+```
+
+```{r}
+confusionMatrix(cm_train)
+```
+```{r}
+confusionMatrix(cm_test)
+```
+Some information on the model
+```{r}
+summary(classifier)
+```

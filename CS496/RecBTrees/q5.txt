@@ -1,0 +1,26 @@
+letrec sizet(t) = 
+  caseT t of {
+    emptytree -> 0,
+    node(a,l,r) -> 1 + (sizet l) + (sizet r)
+  }
+in sizet
+
+letrec mapt(t) = 
+   proc (f) {
+     caseT t of {
+        emptytree -> emptytree,
+        node(a,l,r) -> node(( f a ), ( ( mapt l) f ), ( ( mapt r ) f ))
+     }
+   }
+in mapt
+
+letrec foldt(t) = 
+   proc (a) {
+   proc (f) {
+     caseT t of {
+        emptytree -> a,
+        node(a, l, r) -> (((f a) (((foldt f) a) l) (((foldt f) a) r))
+     }
+   }
+}
+in foldt

@@ -1,0 +1,28 @@
+Compiling shortestpaths.cpp...done
+
+Running test 1...success [0.006 seconds]
+Running test 2...success [0.005 seconds]
+Running test 3...success [0.005 seconds]
+Running test 4...success [0.005 seconds]
+Running test 5...success [0.005 seconds]
+Running test 6...success [0.005 seconds]
+Running test 7...success [0.005 seconds]
+Running test 8...success [0.005 seconds]
+Running test 9...success [0.012 seconds]
+Running test 10...success [0.005 seconds]
+Running test 11...success [0.005 seconds]
+Running test 12...success [0.005 seconds]
+Running test 13...success [0.005 seconds]
+Running test 14...success [0.005 seconds]
+Running test 15...success [0.009 seconds]
+Running test 16...success [0.006 seconds]
+Running test 17...success [0.006 seconds]
+Running test 18...success [0.006 seconds]
+Running test 19...success [0.006 seconds]
+Running test 20...success [0.007 seconds]
+
+Total tests run: 20
+Number correct : 20
+Percent correct: 100.00
+
+Cleaning project...done

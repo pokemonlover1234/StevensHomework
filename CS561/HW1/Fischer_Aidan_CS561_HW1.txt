@@ -1,0 +1,95 @@
+Name: Aidan Fischer
+CWID: 10447681
+I pledge my honor that I have abided by the Stevens Honor System
+
+Query 1:
+
+
+WITH min_max_quants(cust, min_q, max_q, avg_q) AS (
+	SELECT cust, MIN(quant), MAX(quant), AVG(quant)
+	FROM sales GROUP BY cust
+), min_data(cust, min_prod, min_date, min_st) AS (
+	SELECT Q.cust, S.prod, S.date, S.state FROM
+	sales S, min_max_quants Q WHERE 
+	S.cust = Q.cust AND S.quant = Q.min_q
+), max_data(cust, max_prod, max_date, max_st) AS (
+	SELECT Q.cust, S.prod, S.date, S.state FROM
+	sales S, min_max_quants Q WHERE 
+	S.cust = Q.cust AND S.quant = Q.max_q
+)
+SELECT Q.cust as customer, Q.min_q, N.min_prod, N.min_date, N.min_st,
+Q.max_q, X.max_prod, X.max_date, X.max_st, Q.avg_q FROM
+min_max_quants Q, min_data N, max_data X WHERE 
+Q.cust = N.cust and Q.cust = X.cust and N.cust = X.cust
+
+
+Query 2:
+
+
+WITH sales_sums(qrtr, date, total) AS (
+	SELECT (sales.month - 1) / 3 + 1 as qrtr, sales.date, SUM(quant) FROM
+	sales GROUP BY qrtr, sales.date
+), minmaxes(qrtr, min_tot, max_tot) AS (
+	SELECT qrtr, MIN(total), MAX(total) FROM sales_sums GROUP BY qrtr
+)
+SELECT MM.qrtr, MO.date AS most_profit_date, MO.total AS most_profit_total_q, 
+LE.date AS least_profit_day, LE.total AS least_profit_total_q FROM 
+sales_sums MO, sales_sums LE, minmaxes MM WHERE MO.total = MM.max_tot AND 
+LE.total = MM.min_tot AND MO.qrtr = LE.qrtr AND MO.qrtr = MM.qrtr and LE.qrtr = MM.qrtr
+	
+
+Query 3:
+
+
+WITH prod_sums(prod, mon, tot_quant) AS (
+	SELECT sales.prod, sales.month, SUM(sales.quant) 
+	FROM sales GROUP BY sales.prod, sales.month
+), month_minmax(prod, min_quant, max_quant) AS (
+	SELECT prod, MIN(tot_quant), MAX(tot_quant)
+	FROM prod_sums GROUP BY prod
+)
+SELECT MM.prod as product, MA.mon as most_fav_mo, LE.mon as least_fav_mo 
+FROM month_minmax MM, prod_sums LE, prod_sums MA WHERE
+MM.prod = LE.prod AND MM.prod = MA.prod and LE.prod = MA.prod 
+AND LE.tot_quant = MM.min_quant AND MA.tot_quant = MM.max_quant
+
+
+Query 4:
+
+
+WITH qrtr_avgs(qrtr, cust, prod, q_avg) AS (
+	SELECT (sales.month - 1) / 3 + 1 as qrtr, cust, prod, AVG(quant) FROM 
+	sales GROUP BY qrtr, cust, prod
+), prod_tots(customer, product, average, total, count) AS (
+	SELECT cust, prod, AVG(quant), SUM(quant), COUNT(quant) FROM 
+	sales GROUP BY cust, prod
+)
+SELECT PT.customer, PT.product, Q1.q_avg as q1_avg, Q2.q_avg AS q2_avg,
+Q3.q_avg AS q3_avg, Q4.q_avg as q4_avg, PT.average, PT.total, PT.count
+FROM prod_tots PT, qrtr_avgs Q1, qrtr_avgs Q2, qrtr_avgs Q3, qrtr_avgs Q4
+WHERE PT.customer = Q1.cust and PT.product = Q1.prod AND Q1.qrtr = 1
+AND PT.customer = Q2.cust and PT.product = Q2.prod AND Q2.qrtr = 2
+AND PT.customer = Q3.cust and PT.product = Q3.prod AND Q3.qrtr = 3
+AND PT.customer = Q4.cust and PT.product = Q4.prod AND Q4.qrtr = 4
+
+
+Query 5:
+
+
+WITH njnyct_maxes(cust, prod, state, state_max) AS (
+	SELECT cust, prod, sales.state, MAX(quant) FROM
+	sales GROUP BY cust, prod, sales.state HAVING sales.state = 'NJ' OR sales.state = 'NY' OR sales.state = 'CT'
+), njnyct_maxdates(cust, prod, state, max_date) AS (
+	SELECT S.cust, S.prod, S.state, S.date FROM sales S, njnyct_maxes MA
+	WHERE S.quant = MA.state_max AND S.cust = MA.cust AND S.prod = MA.prod
+	AND S.state = MA.state
+), njnyct_maxdata(cust, prod, state, state_max, max_date) AS (
+	SELECT * FROM 
+	njnyct_maxes NATURAL JOIN njnyct_maxdates
+)
+SELECT NJ.cust AS customer, NJ.prod AS product, NJ.state_max AS nj_max, NJ.max_date AS nj_date, NY.state_max AS ny_max, 
+NY.max_date AS ny_date, CT.state_max AS ct_max, CT.max_date AS ct_date FROM
+njnyct_maxdata NJ, njnyct_maxdata NY, njnyct_maxdata CT WHERE 
+NJ.cust = NY.cust AND NJ.cust = CT.cust AND NY.cust = CT.cust AND
+NY.prod = NY.prod AND NJ.prod = CT.prod AND NY.prod = CT.prod AND
+NJ.state = 'NJ' AND NY.state = 'NY' AND CT.state = 'CT'

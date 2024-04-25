@@ -1,0 +1,23 @@
+Please note that MA 544 is heavy on programming in Python.  If you are new to the language, we have a set of tutorials that provides the foundational understanding and practice of the basics, NumPy, Pandas and some visualization. Check Module 0 for these tutorials. You must be logged in using Stevens credentials to access these files. 
+
+            Go through Part 1 and the references therein first.
+            There is a collection of Python Examples in one of the references. Try to work on as many of them as possible in the short time before the terms starts.
+            To encourage practice, I have put an optional exercise on the Google Drive. If you work on these problems and submit, it could replace one of your lowest scoring programming home-works.
+
+Python Practice Exercise .pdf
+
+Download Python Practice Exercise .pdf
+
+Python Practice Exercise.ipynb
+
+Download Python Practice Exercise.ipynb
+
+ 
+
+Do not provide you name with the submission.
+
+There will be an anonymous peer-review. You must come back to finish peer-review to get full credit.
+
+ 
+
+Convert your solution into a pdf and submit here. Saving the print-preview is a simple way of doing so.

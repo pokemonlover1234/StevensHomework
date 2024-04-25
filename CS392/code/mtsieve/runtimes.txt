@@ -1,0 +1,19 @@
+./mtsieve -s100 -e200000000 -t1 : 0m6.999s
+./mtsieve -s100 -e200000000 -t2 : 0m4.454s
+./mtsieve -s100 -e200000000 -t3 : 0m3.465s
+./mtsieve -s100 -e200000000 -t4 : 0m3.091s
+./mtsieve -s100 -e200000000 -t5 : 0m3.022s
+./mtsieve -s100 -e200000000 -t6 : 0m2.901s
+./mtsieve -s100 -e200000000 -t7 : 0m2.819s
+./mtsieve -s100 -e200000000 -t8 : 0m2.940s
+./mtsieve -s100 -e200000000 -t9 : 0m2.791s
+./mtsieve -s100 -e200000000 -t10 : 0m2.832s
+./mtsieve -s100 -e200000000 -t11 : 0m2.734s
+./mtsieve -s100 -e200000000 -t12 : 0m2.617s
+
+CPU: Intel(R) Core(TM) i7-8750H CPU @ 2.20GHz
+
+The time does not scale linearly with number of threads. It plateaus starting around
+where then number of threads equals the number of CPUs available. At 10 threads it 
+seems to be slower, but I attribute that to random error due to other processes 
+running on my system. 

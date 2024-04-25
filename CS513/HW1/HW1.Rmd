@@ -1,0 +1,173 @@
+---
+title: 'CS513 HW1: Probability'
+subtitle: Aidan Fischer - 10447681
+output:
+  pdf_document: default
+  html_notebook: default
+df_print: paged
+---
+I pledge my honor that I have abided by the Stevens Honor System.
+
+`r rm(list=ls())`
+
+# 1)
+
+$P(J) = .2$
+
+$P(S) = .3$
+
+$P(J \cap S) = .08$
+
+$P(J \cup S) = P(J)+P(S)-P(J \cap S)=.2+.3-.08=.42$
+
+## a)
+
+$P(J|S)=\frac{P(J \cap S)}{P(S)}=\frac{.08}{.3}=\frac{4}{15}$
+
+## b)
+
+$P(J)=P(J|S)P(S)+P(J|\bar S)P(\bar S)$
+
+$.2=\frac{4}{15}*.3+P(J|\bar S)*.7$
+
+$.2=.08+P(J|\bar S)*.7$
+
+$.12=P(J|\bar S)*.7$
+
+$P(J|\bar S)=\frac{12}{70}$
+
+## c)
+
+$P(Both|One)=\frac{P(Both \cap One)}{P(One)}=\frac{P(Both)}{P(One)}=\frac{.08}{.42}=\frac{4}{21}$
+
+# 2)
+
+$P(H)=.8$
+
+$P(S)=.9$
+
+$P(S \cup H) = P(S) + P(H) - P(H \cap S) = .91$
+
+$1.7-P(H \cap S)=0.91 => P(H \cap S)=.79$
+
+## a)
+
+$P(H-S)=P(H)-P(H \cap S)=.8-.79 = .01$
+
+## b)
+
+$P(S-H)=P(S)-P(H \cap S)=.9-.79=.11$
+
+## c)
+
+$P(\bar S \cap \bar H)=1-P(S \cup H)=1-.91=.09$
+
+# 3)
+
+Independent if $P(J \cap S)=P(J)P(S)$
+
+Since $.08 \neq .2 * .3=.06$, the events are not independent.
+
+# 4)
+
+Individual rolls are independent events.
+
+## a) 
+
+The probability that the second die shows 5 is $\frac{1}{6}$
+
+The probability that the sum is 6 is the sum of the probabilities of the dice rolls that add to 6
+
+Since the rolls are independent, we can just take ordered pairs of dice rolls as the independent events, with each possible pair having a probability of $\frac{1}{36}$
+
+There are 5 pairs that add to 6 (1,5),(2,4),(3,3),(4,2),(5,1) so the probabilty the sum is $\frac{5}{36}$. Since there is only one pair that has the second dice show 5, the chance of both events being true is $\frac{1}{36}$.
+
+Since $\frac{5}{36}*\frac{1}{6}\neq\frac{1}{36}$, the events are not independent.
+
+## b)
+
+By similar reasoning, take the pairs that add to 7 - (1,6),(2,5),(3,4),(4,3),(5,2),(6,2). There are 6, so the chance the sum is 7 is $\frac{1}{6}$. The chance that the first die is 5 is $\frac{1}{6}$. The chance that both happen is once again $\frac{1}{36}$. 
+
+Since $\frac{1}{6}*\frac{1}{6}=\frac{1}{36}$, the events are independent.
+
+# 5)
+
+$P(CTX)=.6$
+
+$P(CAK)=.3$
+
+$P(CNJ)=.1$
+
+$P(OTX)=.3$
+
+$P(OAK)=.2$
+
+$P(ONJ)=.1$
+
+## a)
+
+$P(Oil) = P(CTX)P(OTX) + P(CAK)P(OAK) + P(CNJ)P(ONJ)=.6*.3+.3*.2+.1*.1=.18+.06+.01=.25$
+
+## b)
+
+$P(CTX|Oil)=\frac{P(CTX\cap Oil)}{P(Oil)}=\frac{.3*.6}{.25}=.6*1.2=.72$
+
+# 6)
+
+## a)
+
+$\frac{1490}{2201}$
+
+## b)
+
+$\frac{325}{2201}$
+
+## c)
+
+$\frac{203}{711}$
+
+## d) 
+
+$P(Survived) = \frac{711}{2201}$
+
+$P(First) = \frac{325}{2201}$
+
+$P(First and Survived) = \frac{203}{2201}$
+
+$\frac{711}{2201} * \frac{325}{2201} \neq \frac{203}{2201}$, so the events are not independent.
+
+## e) 
+
+$P(First Class \cap Child | Survived) = \frac{6}{203}$
+
+## f)
+
+$P(Adult|Survived)=\frac{654}{711}$
+
+## g) 
+
+$P(Adult|Survived)=\frac{654}{711}$
+
+$P(Child|Survived)=\frac{57}{711}$
+
+$P(First Class | Survived = \frac{203}{711}$
+
+$P(Adult|Survived)P(First Class | Survived) \neq P(Adult \cap First Class)$ So they aren't independent.
+
+# 7)
+
+```{r}
+AIGenerated=c(970,30,1000)
+HumanGenerated=c(70,930,1000)
+Total=c(1040,960,2000)
+confmatrix=data.frame(AIGenerated,HumanGenerated,Total,row.names=c("Predicted AI","Predicted Human","Total"))
+print(confmatrix)
+```
+
+Accuracy = $\frac{TP+TN}{TP+FP+FN+TN}=\frac{1900}{2000}=.95$
+
+Precision = $\frac{TP}{TP+FP}=\frac{970}{1040}\approx .93$
+
+Recall = $\frac{TP}{TP+FN}=\frac{970}{1000}=.97$
+
+F1 = $\frac{2*Precision*Recall}{Precision+Recall}=\frac{2*\frac{970}{1040}*.97}{\frac{970}{1040}+.97}\approx .95$
